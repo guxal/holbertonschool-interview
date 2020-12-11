@@ -36,4 +36,10 @@ def canUnlockAll(boxes):
     Parameters:
         boxes: is a list of lists
     """
+    if len(boxes) == 0:
+        return True
+
+    if not isinstance(boxes, list):
+        return False
+
     return reUnlock(boxes, 1, boxes[0], [])
