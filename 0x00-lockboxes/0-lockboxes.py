@@ -2,7 +2,7 @@
 """ lockboxes module """
 
 
-def reUnlock(boxes, inc, keys):
+def reUnlock(boxes, inc, keys, idx):
     """
     Returns: True if the all boxes is Unlock else False
     Parameters:
@@ -13,9 +13,17 @@ def reUnlock(boxes, inc, keys):
     if (len(boxes) > inc):
         if(inc in keys):
             keys += boxes[inc]
-        reUnlock(boxes, inc + 1, keys)
+        else:
+            idx += [inc]
+        reUnlock(boxes, inc + 1, keys, idx)
 
-    if (inc < len(boxes) and inc in keys):
+    if (inc == len(boxes)):
+        for x in idx:
+            if (x in keys):
+                keys += boxes[x]
+
+    if (inc < len(boxes)):
+        if (inc in keys):
             keys += boxes[inc]
 
     return len(list(set(keys) | {0})) == len(boxes)
@@ -28,4 +36,4 @@ def canUnlockAll(boxes):
     Parameters:
         boxes: is a list of lists
     """
-    return reUnlock(boxes, 1, boxes[0])
+    return reUnlock(boxes, 1, boxes[0], [])
