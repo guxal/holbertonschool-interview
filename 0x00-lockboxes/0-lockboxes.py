@@ -16,16 +16,13 @@ def reUnlock(boxes, inc, keys, idx):
         else:
             idx += [inc]
         reUnlock(boxes, inc + 1, keys, idx)
-
     if (inc < len(boxes)):
         if (inc in keys):
             keys += boxes[inc]
- 
     if (inc == 1):
         for x in idx:
             if (x in keys):
                 keys += boxes[x]
-
     return len(list(set(keys) | {0})) == len(boxes)
 
 
