@@ -26,14 +26,15 @@ class Unlock:
         """
         if self.keys[index]:
             return
-
         self.keys[index] = True
         for i in box[index]:
             if isinstance(i, int) and i >= 0 and i < len(box)\
              and not self.keys[i]:
                 self.helper(box, i)
-            else:
+            elif (len(box) + 1 == 1000):
                 return
+            else:
+                continue
 
 
 def canUnlockAll(boxes):
