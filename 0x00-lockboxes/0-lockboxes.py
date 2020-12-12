@@ -2,28 +2,33 @@
 """ lockboxes module """
 
 
-def reUnlock(boxes, inc, keys, idx):
+class Unlock:
     """
-    Returns: True if the all boxes is Unlock else False
-    Parameters:
-        boxes: is a list of lists
-        inc: index of lists
-        keys: keys open box
+    Class definition: Unlock
     """
-    if (len(boxes) > inc):
-        if(inc in keys):
-            keys += boxes[inc]
-        else:
-            idx += [inc]
-        reUnlock(boxes, inc + 1, keys, idx)
-    if (inc < len(boxes)):
-        if (inc in keys):
-            keys += boxes[inc]
-    if (inc == 1):
-        for x in idx:
-            if (x in keys):
-                keys += boxes[x]
-    return len(list(set(keys) | {0})) == len(boxes)
+    def all(self, box):
+        """ Function all
+
+        Returns:
+            box: box array to open
+        """
+        size = len(box)
+        self.keys = [False]*size
+        self.helper(box, 0)
+        return all(self.keys)
+
+    def helper(self, box, index):
+        """ Function helper
+
+        Returns:
+            box: box to open
+            index: current index
+        """
+        if self.keys[index]:
+            return
+        self.keys[index] = True
+        for i in box[index]:
+            self.helper(box, i)
 
 
 def canUnlockAll(boxes):
@@ -39,4 +44,4 @@ def canUnlockAll(boxes):
     if not isinstance(boxes, list):
         return False
 
-    return reUnlock(boxes, 1, boxes[0], [])
+    return Unlock().all(boxes)
