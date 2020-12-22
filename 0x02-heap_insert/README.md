@@ -10,7 +10,7 @@ Function that creates a binary tree node
 ```
 
 
-> ### binary_tree_print.c 
+> ### binary_tree_print.c
 Functions to print binary trees in a pretty way
 
 ```
