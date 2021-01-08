@@ -6,35 +6,23 @@
 """
 
 
-def minOperationsRecursive(n, h):
-    """
-      Function Recursive that calculates the fewest
-      number of operations needed to
-      result in exactly n H characters in the file
-      Return: an integer
-    """
-    if n == h:
-        return 0
-
-    if (n >= h * 2):
-        val = minOperationsRecursive(n, h * 2)
-        if val != -1:
-            return val + 2
-    if (n >= h + h/2):
-        val = minOperationsRecursive(n, h + h/2)
-        if val != -1:
-            return val + 1
-
-    return -1
-
-
 def minOperations(n):
+    """Function that calculates the fewest number of operations needed to
+        result in exactly n H characters in the file
+        Return: an integer
     """
-      Function that calculates the fewest number of operations needed to
-      result in exactly n H characters in the file
-      Return: an integer
-    """
-    if n <= 1:
-        return 0
+    result = 0
+    i = 2
+    aux = n
 
-    return minOperationsRecursive(n, 1)
+    if n <= 1:
+        return result
+
+    while aux > 1 and i <= n:
+        if aux % i == 0:
+            aux = aux / i
+            result = result + i
+        else:
+            i = i + 1
+
+    return result
