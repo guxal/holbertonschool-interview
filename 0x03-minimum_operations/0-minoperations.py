@@ -34,7 +34,7 @@ def minOperations(n):
       result in exactly n H characters in the file
       Return: an integer
     """
-    if n < 0:
+    if n <= 1:
         return 0
 
     return minOperationsRecursive(n, 1)
