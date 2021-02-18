@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+
+
 def validUTF8(data):
     '''Checks if UTF-8 is valid'''
     byte_cnt = 0
