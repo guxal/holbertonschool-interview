@@ -1,42 +1,71 @@
 #include "slide_line.h"
 
+/**
+ * initvalue - initialization value for loop
+ * @size: size array
+ * @direction: direction to match
+ * Return: Success 0 or greater, -1 Error
+ */
 int initvalue(int size, int direction)
 {
 	if (direction == SLIDE_LEFT)
 		return (0);
 	else if (direction == SLIDE_RIGHT)
 		return (size - 1);
-
 	return (-1);
 }
 
+/**
+ * logic - increment o decrement index
+ * @n: index
+ * @direction: direction to match
+ * Return: Success 0 or greater, -1 Error
+ */
 int logic(int n, int direction)
 {
 	if (direction == SLIDE_LEFT)
-		return ++n;
+		return (++n);
 	else if (direction == SLIDE_RIGHT)
-		return --n;
+		return (--n);
 	return (-1);
 }
 
-int condition(int n, int size, int direction)
+/**
+ * condition - set condition to use
+ * @j: index
+ * @n: index general
+ * @size: size array
+ * @direction: direction to match
+ * Return: Success 0 or greater, -1 Error
+ */
+int condition(int j, int n, int size, int direction)
 {
-	if (direction == SLIDE_LEFT)
-		return n < size;
-	else if (direction == SLIDE_RIGHT)
-		return 0 <= n;
+	const int min = 0;
+
+	if (j == 0)
+	{
+		if (direction == SLIDE_LEFT)
+			return (n < size);
+		else if (direction == SLIDE_RIGHT)
+			return (min <= n);
+	}
+	else
+	{
+		if (direction == SLIDE_LEFT)
+			return (j < size - n);
+		else if (direction == SLIDE_RIGHT)
+			return (j - 1 < n);
+	}
 	return (-1);
 }
 
-int condition2(int j, int n, int size, int direction)
-{
-	if (direction == SLIDE_LEFT)
-		return j < size - n;
-	else if (direction == SLIDE_RIGHT)
-		return j - 1 < n;
-	return (-1);
-}
-
+/**
+ * index2 - index to evaluate
+ * @n: index general
+ * @j: index
+ * @direction: direction to match
+ * Return: Success 0 or greater, -1 Error
+ */
 int index2(int n, int j, int direction)
 {
 	if (direction == SLIDE_LEFT)
@@ -46,28 +75,34 @@ int index2(int n, int j, int direction)
 	return (-1);
 }
 
+/**
+ * slide_line - math to R or L
+ * @line: array match
+ * @size: size array
+ * @direction: direction to match
+ * Return: Success 0 or greater, -1 Error
+ */
 int slide_line(int *line, size_t size, int direction)
 {
 	int PB = NULL;
 	int n, j;
 
 
-	for (n = initvalue(size, direction); condition(n, size, direction); n = logic(n, direction))
+	for (n = initvalue(size, direction);
+		 condition(0, n, size, direction);
+		 n = logic(n, direction))
 	{
-		printf("%d\n", n);
 		if (line[n] > 0)
 		{
-			printf("mayor a 0\n");
-			for(j = 1; condition2(j, n, size, direction); j++)
+			for (j = 1; condition(j, n, size, direction); j++)
 			{
-				printf("index : %d\n", index2(n, j, direction));
 				if (line[n] == line[index2(n, j, direction)])
 				{
 					line[n] = 2 * line[n];
 					line[index2(n, j, direction)] = 0;
 					break;
 				}
-				else if(line[index2(n, j, direction)] > 0)
+				else if (line[index2(n, j, direction)] > 0)
 				{
 					break;
 				}
@@ -88,6 +123,5 @@ int slide_line(int *line, size_t size, int direction)
 				PB = n;
 		}
 	}
-
 	return (1);
 }
