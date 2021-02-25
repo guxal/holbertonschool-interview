@@ -5,7 +5,7 @@ int initvalue(int size, int direction)
 	if (direction == SLIDE_LEFT)
 		return (0);
 	else if (direction == SLIDE_RIGHT)
-		return (size);
+		return (size - 1);
 
 	return (-1);
 }
@@ -33,7 +33,7 @@ int condition2(int j, int n, int size, int direction)
 	if (direction == SLIDE_LEFT)
 		return j < size - n;
 	else if (direction == SLIDE_RIGHT)
-		return j < n;
+		return j - 1 < n;
 	return (-1);
 }
 
@@ -54,10 +54,13 @@ int slide_line(int *line, size_t size, int direction)
 
 	for (n = initvalue(size, direction); condition(n, size, direction); n = logic(n, direction))
 	{
+		printf("%d\n", n);
 		if (line[n] > 0)
 		{
+			printf("mayor a 0\n");
 			for(j = 1; condition2(j, n, size, direction); j++)
 			{
+				printf("index : %d\n", index2(n, j, direction));
 				if (line[n] == line[index2(n, j, direction)])
 				{
 					line[n] = 2 * line[n];
