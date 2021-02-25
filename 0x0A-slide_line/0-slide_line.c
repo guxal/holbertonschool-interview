@@ -84,7 +84,7 @@ int index2(int n, int j, int direction)
  */
 int slide_line(int *line, size_t size, int direction)
 {
-	int PB = NULL;
+	int PB = -1;
 	int n, j;
 
 	n = initvalue(size, direction);
@@ -107,7 +107,7 @@ int slide_line(int *line, size_t size, int direction)
 					break;
 				}
 			}
-			if (PB != '\0')
+			if (PB != -1)
 			{
 				line[PB] = line[n];
 				line[n] = 0;
@@ -119,7 +119,7 @@ int slide_line(int *line, size_t size, int direction)
 		}
 		else
 		{
-			if (PB == '\0')
+			if (PB == -1)
 				PB = n;
 		}
 	}
