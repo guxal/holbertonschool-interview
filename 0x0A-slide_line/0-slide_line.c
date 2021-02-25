@@ -80,17 +80,17 @@ int index2(int n, int j, int direction)
  * @line: array match
  * @size: size array
  * @direction: direction to match
- * Return: Success 0 or greater, -1 Error
+ * Return: Success 1, otherwise Error
  */
 int slide_line(int *line, size_t size, int direction)
 {
 	int PB = NULL;
 	int n, j;
 
-
-	for (n = initvalue(size, direction);
-		 condition(0, n, size, direction);
-		 n = logic(n, direction))
+	n = initvalue(size, direction);
+	if (n == -1)
+		return (0);
+	for (; condition(0, n, size, direction); n = logic(n, direction))
 	{
 		if (line[n] > 0)
 		{
