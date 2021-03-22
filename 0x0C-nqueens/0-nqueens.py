@@ -1,42 +1,44 @@
 #!/usr/bin/python3
-"""
-The N Queens Problem
-Show All possible ways to place N non-attacking Queens on an NxN board
-"""
-
+''' N queens problem '''
 import sys
+from copy import deepcopy
 
 
-def cposition(mask, row, col):
-    '''Checks position'''
-    for c in range(col):
-        if mask[c] is row or abs(mask[c] - row) is abs(c - col):
+def is_valid(board, row):
+    for i in range(row):
+        diff = abs(board[i][1] - board[row][1])
+        if diff == 0 or diff == row - i:
             return False
     return True
 
 
-def check(mask, col):
-    '''Backtracking'''
-    n = len(mask)
-    if col is n:
-        print(str([[c, mask[c]] for c in range(n)]))
-        return
+def n_queens(res, board, row, n):
+    if row == n:
+        # Deep copy is needed because board is a 2D list
+        # or you can just print the board if task is to dislay solutions
+        res.append(deepcopy(board))
+    else:
+        for col in range(n):
+            board[row][1] = col
+            if is_valid(board, row):
+                n_queens(res, board, row + 1, n)
 
-    for row in range(n):
-        if cposition(mask, row, col):
-            mask[col] = row
-            check(mask, col + 1)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print("Usage: nqueens N") or exit(1)
+        print("Usage: nqueens N")
+        exit(1)
     try:
         n = int(sys.argv[1])
-    except ValueError:
-        print("N must be a number") or exit(1)
+    except Exception:
+        print("N must be a number")
+        exit(1)
     if n < 4:
-        print("N must be at least 4") or exit(1)
+        print("N must be at least 4")
+        exit(1)
 
-    mask = [0 for col in range(int(sys.argv[1]))]
-
-    check(mask, 0)
+    res = []
+    board = [[i, -1] for i in range(n)]
+    n_queens(res, board, 0, n)
+    for i in res:
+        print(i)
